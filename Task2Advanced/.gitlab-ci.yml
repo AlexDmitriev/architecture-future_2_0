@@ -1,0 +1,119 @@
+stages:
+  - validate
+  - plan
+  - apply
+
+variables:
+  TF_VERSION: "1.9.8"
+  TF_PROJECT_DIR: "${CI_PROJECT_DIR}/Task2Advanced"
+  TF_BACKEND_BUCKET: "terraform-state-bucket"
+  TF_BACKEND_REGION: "ru-central1"
+  # Uncomment for Yandex Object Storage or MinIO:
+  # TF_BACKEND_ENDPOINT: "https://storage.yandexcloud.net"
+  # TF_BACKEND_USE_PATH_STYLE: "false"
+
+image:
+  name: hashicorp/terraform:${TF_VERSION}
+  entrypoint: [""]
+
+.terraform_base:
+  before_script:
+    - cd "${TF_PROJECT_DIR}"
+    - apk add --no-cache bash
+    - chmod +x scripts/*.sh
+
+validate:
+  extends: .terraform_base
+  stage: validate
+  script:
+    - terraform fmt -check -recursive .
+    - terraform -chdir=envs/dev init -backend=false
+    - terraform -chdir=envs/dev validate
+    - terraform -chdir=envs/stage init -backend=false
+    - terraform -chdir=envs/stage validate
+    - terraform -chdir=envs/prod init -backend=false
+    - terraform -chdir=envs/prod validate
+
+.plan_template:
+  extends: .terraform_base
+  stage: plan
+  artifacts:
+    paths:
+      - envs/${TF_ENV}/plan.tfplan
+    expire_in: 1 week
+  # Secrets: set TF_VAR_subnet_id, TF_VAR_ssh_key, YC_TOKEN, YC_CLOUD_ID, YC_FOLDER_ID
+  # and AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY in GitLab CI/CD Variables.
+
+plan:dev:
+  extends: .plan_template
+  variables:
+    TF_ENV: dev
+  script:
+    - export TF_BACKEND_KEY="dev/terraform.tfstate"
+    - ./scripts/terraform-init.sh "envs/${TF_ENV}"
+    - ./scripts/terraform-plan.sh "envs/${TF_ENV}"
+
+plan:stage:
+  extends: .plan_template
+  variables:
+    TF_ENV: stage
+  script:
+    - export TF_BACKEND_KEY="stage/terraform.tfstate"
+    - ./scripts/terraform-init.sh "envs/${TF_ENV}"
+    - ./scripts/terraform-plan.sh "envs/${TF_ENV}"
+
+plan:prod:
+  extends: .plan_template
+  variables:
+    TF_ENV: prod
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - export TF_BACKEND_KEY="prod/terraform.tfstate"
+    - ./scripts/terraform-init.sh "envs/${TF_ENV}"
+    - ./scripts/terraform-plan.sh "envs/${TF_ENV}"
+
+.apply_template:
+  extends: .terraform_base
+  stage: apply
+  when: manual
+  allow_failure: false
+
+apply:dev:
+  extends: .apply_template
+  needs:
+    - job: plan:dev
+      artifacts: true
+  variables:
+    TF_ENV: dev
+  script:
+    - export TF_BACKEND_KEY="dev/terraform.tfstate"
+    - ./scripts/terraform-init.sh "envs/${TF_ENV}"
+    - ./scripts/terraform-apply.sh "envs/${TF_ENV}" plan.tfplan
+
+apply:stage:
+  extends: .apply_template
+  needs:
+    - job: plan:stage
+      artifacts: true
+  variables:
+    TF_ENV: stage
+  script:
+    - export TF_BACKEND_KEY="stage/terraform.tfstate"
+    - ./scripts/terraform-init.sh "envs/${TF_ENV}"
+    - ./scripts/terraform-apply.sh "envs/${TF_ENV}" plan.tfplan
+
+apply:prod:
+  extends: .apply_template
+  needs:
+    - job: plan:prod
+      artifacts: true
+  variables:
+    TF_ENV: prod
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+  script:
+    - export TF_BACKEND_KEY="prod/terraform.tfstate"
+    - ./scripts/terraform-init.sh "envs/${TF_ENV}"
+    - ./scripts/terraform-apply.sh "envs/${TF_ENV}" plan.tfplan
