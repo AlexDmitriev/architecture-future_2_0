@@ -1,0 +1,10 @@
+# Copy to terraform.tfvars and fill with real values.
+# Do not commit terraform.tfvars — it is listed in .gitignore.
+
+name      = "dev-vm"
+zone      = "ru-central1-a"
+cores     = 2
+memory    = 2
+disk_size = 20
+subnet_id = "replace-with-dev-subnet-id"
+ssh_key   = "ssh-rsa REPLACE_WITH_PUBLIC_KEY"

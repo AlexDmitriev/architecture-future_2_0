@@ -1,0 +1,19 @@
+# Local Terraform state must never be committed.
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Provider cache and modules (recreated by terraform init).
+.terraform/
+
+# Generated backend config may contain environment-specific endpoints.
+backend-config.hcl
+
+# Secrets and environment-specific values.
+terraform.tfvars
+*.auto.tfvars
+
+# Saved plans may contain sensitive resource attributes.
+plan.tfplan
+*.tfplan

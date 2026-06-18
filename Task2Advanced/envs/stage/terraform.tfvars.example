@@ -1,0 +1,7 @@
+name      = "stage-vm"
+zone      = "ru-central1-b"
+cores     = 2
+memory    = 4
+disk_size = 40
+subnet_id = "replace-with-stage-subnet-id"
+ssh_key   = "ssh-rsa REPLACE_WITH_PUBLIC_KEY"

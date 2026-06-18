@@ -1,0 +1,76 @@
+<mxfile host="app.diagrams.net" agent="Cursor" version="24.7.0">
+  <diagram id="tco-chart" name="TCO сравнение">
+    <mxGraphModel dx="1200" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="TCO: текущая vs целевая архитектура (млн руб.)" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="700" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Год 1 -->
+        <mxCell id="y1" value="Год 1" style="text;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="120" y="80" width="50" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="y1a" value="AS-IS: 161" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="75" width="322" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="y1b" value="TO-BE: 261" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#9E9E9E;strokeColor=#000000;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="115" width="522" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Год 2 -->
+        <mxCell id="y2" value="Год 2" style="text;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="120" y="180" width="50" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="y2a" value="AS-IS: 170" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="175" width="340" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="y2b" value="TO-BE: 204" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#757575;strokeColor=#000000;fontColor=#FFFFFF;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="215" width="408" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Год 3 -->
+        <mxCell id="y3" value="Год 3" style="text;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="120" y="280" width="50" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="y3a" value="AS-IS: 179" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="275" width="358" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="y3b" value="TO-BE: 172" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;strokeColor=#000000;fontColor=#FFFFFF;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="315" width="344" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Накопительно -->
+        <mxCell id="sum_box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="100" y="400" width="1000" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="sum_t" value="Накопительно за 3 года" style="text;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="120" y="410" width="200" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="sum_a" value="AS-IS: 510 млн ₽" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#000000;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="120" y="445" width="200" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="sum_b" value="TO-BE: 637 млн ₽&#xa;(вкл. миграцию 95 млн)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="360" y="440" width="220" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="sum_c" value="Run-rate год 4+ (прогноз):&#xa;AS-IS ~188 / TO-BE ~155 млн ₽/год" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#000000;fontColor=#FFFFFF;strokeColor=#000000;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="620" y="440" width="280" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="leg" value="██ AS-IS (текущая)   ██ TO-BE (целевая)   Точка безубыточности run-rate: конец года 3" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="560" width="800" height="25" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="items" value="Основные статьи TO-BE: облако, Kafka, lakehouse, платформа, доменные команды, миграция, сокращение легаси-лицензий, экономия времени аналитиков" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=10;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="150" y="600" width="900" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="note" value="Детализация: tco-analysis.md" style="text;html=1;strokeColor=none;fillColor=none;align=right;fontSize=10;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="900" y="640" width="200" height="20" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
